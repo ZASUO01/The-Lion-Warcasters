@@ -17,6 +17,11 @@ add_executable(${PROJECT_NAME}
         Source/Network/UdpNet/NetLogger.h
         Source/Network/UdpNet.h
         Source/Network/UdpNet/NetLogger.c
+        Source/Network/UdpNet/Socket.c
+        Source/Network/UdpNet/Socket.h
+        Source/Network/UdpNet/Addrresses.c
+        Source/Network/UdpNet/Addrresses.h
+        Source/Network/UdpNet/Defs.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
