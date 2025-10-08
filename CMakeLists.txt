@@ -22,6 +22,8 @@ add_executable(${PROJECT_NAME}
         Source/Network/UdpNet/Addrresses.c
         Source/Network/UdpNet/Addrresses.h
         Source/Network/UdpNet/Defs.h
+        Source/Network/UdpNet/NetUtils.c
+        Source/Network/UdpNet/NetUtils.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)

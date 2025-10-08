@@ -6,10 +6,12 @@
 #include "Socket.h"
 #include  "Addrresses.h"
 #include "Defs.h"
+#include  "NetUtils.h"
 
 void init_net_client(NetClient *client) {
     client->state = CLIENT_CLOSED;
     client->socket = create_socket_v4();
+    client->nonce = generate_nonce();
 
     LOG_MSG(LOG_INFO, "client struct initialized");
 }

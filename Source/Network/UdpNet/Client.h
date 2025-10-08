@@ -5,6 +5,7 @@
 #define CLIENT_H
 
 #include  <arpa/inet.h>
+#include  <stdint.h>
 
 typedef enum {
     CLIENT_CLOSED = 0,
@@ -15,6 +16,8 @@ typedef struct {
     NetClientState state;
     int socket;
     struct sockaddr_in server_addr_v4;
+
+    uint32_t nonce;
 } NetClient;
 
 void init_net_client(NetClient *client);
