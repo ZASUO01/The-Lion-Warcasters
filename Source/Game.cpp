@@ -9,7 +9,7 @@ Game::Game()
         ,mTicksCount(0)
         ,mIsRunning(true)
 {
-
+    init_net_client(&mClient);
 }
 
 bool Game::Initialize()

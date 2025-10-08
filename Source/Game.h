@@ -6,6 +6,10 @@
 #include "SDL.h"
 #include <GL/glew.h>
 
+extern "C" {
+    #include "Network/UdpNet.h"
+}
+
 class Game {
 public:
     Game();
@@ -29,4 +33,7 @@ private:
     // Game control variables
     Uint32 mTicksCount;
     bool mIsRunning;
+
+    // Network variables and methods
+    NetClient mClient;
 };

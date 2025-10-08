@@ -11,6 +11,12 @@ find_package(OpenGL REQUIRED)
 add_executable(${PROJECT_NAME}
         Source/Main.cpp
         Source/Game.cpp
-        Source/Game.h)
+        Source/Game.h
+        Source/Network/UdpNet/Client.c
+        Source/Network/UdpNet/Client.h
+        Source/Network/UdpNet/NetLogger.h
+        Source/Network/UdpNet.h
+        Source/Network/UdpNet/NetLogger.c
+)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
