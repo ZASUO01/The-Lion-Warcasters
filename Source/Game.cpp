@@ -3,11 +3,11 @@
 //
 
 #include "Game.h"
-
 #include "Utils/Random.h"
 
 Game::Game()
         :mWindow(nullptr)
+        ,mRenderer(nullptr)
         ,mTicksCount(0)
         ,mIsRunning(true)
 {
@@ -30,6 +30,9 @@ bool Game::Initialize()
         SDL_Log("Failed to create window: %s", SDL_GetError());
         return false;
     }
+
+    mRenderer = new Renderer(mWindow);
+    mRenderer->Initialize(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT);
 
     mTicksCount = SDL_GetTicks();
 
