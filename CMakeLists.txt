@@ -14,6 +14,13 @@ add_executable(${PROJECT_NAME}
         Source/Game.h
         Source/Utils/Math.h
         Source/Utils/Random.h
-        Source/Utils/Random.cpp)
+        Source/Utils/Random.cpp
+        Source/Renderer/Shader.cpp
+        Source/Renderer/Shader.h
+        Source/Renderer/Renderer.cpp
+        Source/Renderer/Renderer.h
+        Source/Renderer/VertexArray.cpp
+        Source/Renderer/VertexArray.h
+        Source/Utils/Math.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
