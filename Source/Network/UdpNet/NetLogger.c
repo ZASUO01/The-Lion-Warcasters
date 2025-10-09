@@ -3,9 +3,6 @@
 //
 #include "NetLogger.h"
 
-#include  <errno.h>
-#include  <string.h>
-#include  <stdlib.h>
 
 LogLevel current_log_level = LOG_INFO;
 

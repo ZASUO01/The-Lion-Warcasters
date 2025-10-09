@@ -4,7 +4,7 @@
 #ifndef NET_LOGGER_H
 #define NET_LOGGER_H
 
-#include <stdio.h>
+#include "Platforms.h"
 
 typedef enum {
     LOG_DISABLED,

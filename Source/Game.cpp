@@ -79,6 +79,8 @@ void Game::GenerateOutput()
 
 void Game::Shutdown()
 {
+    close_client(&mClient);
+
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
 }

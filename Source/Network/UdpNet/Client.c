@@ -33,3 +33,12 @@ int add_server_addr(NetClient *client, char *ip) {
 
     return -1;
 }
+
+int close_client(NetClient * client) {
+    if (close_socket(client->socket) != 0) {
+        sys_log_exit("close socket failure");
+    }
+
+    client->state = CLIENT_CLOSED;
+    LOG_MSG(LOG_INFO, "client closed");
+}

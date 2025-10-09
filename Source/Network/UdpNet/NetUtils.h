@@ -5,7 +5,7 @@
 #ifndef NETUTILS_H
 #define NETUTILS_H
 
-#include <stdint.h>
+#include "Platforms.h"
 
 uint32_t generate_nonce();
 

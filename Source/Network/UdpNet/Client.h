@@ -4,8 +4,7 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include  <arpa/inet.h>
-#include  <stdint.h>
+#include  "Platforms.h"
 
 typedef enum {
     CLIENT_CLOSED = 0,
@@ -22,5 +21,6 @@ typedef struct {
 
 void init_net_client(NetClient *client);
 int add_server_addr(NetClient *client, char *ip);
+int close_client(NetClient * client);
 
 #endif //CLIENT_H

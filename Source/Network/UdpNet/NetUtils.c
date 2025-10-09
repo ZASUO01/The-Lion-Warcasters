@@ -4,8 +4,6 @@
 
 #include "NetUtils.h"
 
-#include <time.h>
-#include <stdlib.h>
 
 uint32_t generate_nonce() {
     uint32_t timestamp = (uint32_t)time(NULL);
