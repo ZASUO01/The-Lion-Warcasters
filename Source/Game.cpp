@@ -4,6 +4,8 @@
 
 #include "Game.h"
 
+#include "Utils/Random.h"
+
 Game::Game()
         :mWindow(nullptr)
         ,mTicksCount(0)
@@ -14,6 +16,8 @@ Game::Game()
 
 bool Game::Initialize()
 {
+    Random::Init();
+
     if (SDL_Init(SDL_INIT_VIDEO) != 0)
     {
         SDL_Log("Unable to initialize SDL: %s", SDL_GetError());
