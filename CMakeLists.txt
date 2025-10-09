@@ -11,6 +11,9 @@ find_package(OpenGL REQUIRED)
 add_executable(${PROJECT_NAME}
         Source/Main.cpp
         Source/Game.cpp
-        Source/Game.h)
+        Source/Game.h
+        Source/Utils/Math.h
+        Source/Utils/Random.h
+        Source/Utils/Random.cpp)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
