@@ -8,5 +8,6 @@
 #include "Platforms.h"
 
 uint32_t generate_nonce();
+uint16_t get_net_checksum(const void *data, size_t data_size);
 
-#endif //PROJETO_FINAL_NETUTILS_H
+#endif //NETUTILS_H

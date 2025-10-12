@@ -26,6 +26,8 @@ add_executable(${PROJECT_NAME}
         Source/Network/UdpNet/NetUtils.h
         Source/Network/UdpNet/Platforms.h
         Source/Network/UdpNet/Platforms.c
+        Source/Network/UdpNet/Packet.c
+        Source/Network/UdpNet/Packet.h
         Source/Utils/Math.h
         Source/Utils/Math.cpp
         Source/Utils/Random.h
@@ -36,7 +38,7 @@ add_executable(${PROJECT_NAME}
         Source/Renderer/Renderer.h
         Source/Renderer/VertexArray.cpp
         Source/Renderer/VertexArray.h
-       )
+)
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
 

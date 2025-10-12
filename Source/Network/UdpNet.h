@@ -6,5 +6,6 @@
 #define UDPNET_H
 
 #include "UdpNet/Client.h"
+#include "UdpNet/Socket.h"
 
 #endif //UDPNET_H

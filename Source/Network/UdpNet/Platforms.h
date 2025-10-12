@@ -21,15 +21,22 @@
     #include <ws2tcpip.h>
     #include <windows.h>
 
+    #define POLL_FD_TYPE WSAPOLLFD
+    #define socket_poll WSAPoll
     #define close_socket closesocket
 
-    #pragma comment(lib, "ws2_32.lib")
+    #ifdef _MSC_VER
+        #pragma comment(lib, "ws2_32.lib")
+    #endif
 
 #else
     #include <sys/socket.h>
     #include <arpa/inet.h>
     #include <unistd.h>
+    #include <poll.h>
 
+    #define POLL_FD_TYPE struct pollfd
+    #define socket_poll poll
     #define close_socket close
 #endif
 
