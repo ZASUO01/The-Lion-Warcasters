@@ -5,6 +5,7 @@
 #pragma once
 #include "SDL.h"
 #include <GL/glew.h>
+#include "Renderer/Renderer.h"
 
 extern "C" {
     #include "Network/UdpNet.h"
@@ -19,6 +20,8 @@ public:
     void Shutdown();
     void Quit() { mIsRunning = false; }
 
+    class Renderer* GetRenderer() { return mRenderer; }
+
     static const int WINDOW_WIDTH = 1024;
     static const int WINDOW_HEIGHT = 768;
 
@@ -29,6 +32,7 @@ private:
 
     // SDL stuff
     SDL_Window* mWindow;
+    class Renderer *mRenderer;
 
     // Game control variables
     Uint32 mTicksCount;
