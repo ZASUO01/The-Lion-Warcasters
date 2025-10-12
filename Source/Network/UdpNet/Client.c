@@ -16,7 +16,7 @@ void init_net_client(NetClient *client) {
     LOG_MSG(LOG_INFO, "client struct initialized");
 }
 
-int add_server_addr(NetClient *client, char *ip) {
+int add_server_addr(NetClient *client, const char *ip) {
     if (client->state == CLIENT_CLOSED) {
         struct sockaddr_in addr_v4;
 

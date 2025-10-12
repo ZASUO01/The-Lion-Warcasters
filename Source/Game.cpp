@@ -3,6 +3,9 @@
 //
 
 #include "Game.h"
+
+#include "Network/UdpNet/Packet.h"
+#include "Network/UdpNet/Socket.h"
 #include "Utils/Random.h"
 
 Game::Game()
@@ -64,11 +67,29 @@ void Game::ProcessInput()
     }
 
     const Uint8* state = SDL_GetKeyboardState(nullptr);
+
+    UdpNetPacket pk;
+    init_packet(&pk, 0, SYN_FLAG, 0);
+    build_packet(&pk);
+    size_t pk_size = PACKET_HEADER_BYTES;
+    send_packet_to_v4(mClient.socket, &pk, pk_size, &mClient.server_addr_v4);
 }
 
 void Game::UpdateGame()
 {
-    while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16));
+    bool packet_received = false;
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)) {
+        if (socket_ready_to_receive(mClient.socket , 0) != 0) {
+            continue;
+        }
+
+        UdpNetPacket pk;
+        if (receive_packet_from_v4(mClient.socket, &pk, &mClient.server_addr_v4) != 0) {
+            continue;
+        }
+
+        SDL_Log("reveived packet");
+    }
 
     float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
     if (deltaTime > 0.05f)
