@@ -20,7 +20,7 @@ typedef struct {
 } NetClient;
 
 void init_net_client(NetClient *client);
-int add_server_addr(NetClient *client, char *ip);
+int add_server_addr(NetClient *client, const char *ip);
 int close_client(NetClient * client);
 
 #endif //CLIENT_H
