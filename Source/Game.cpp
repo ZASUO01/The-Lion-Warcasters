@@ -81,12 +81,18 @@ void Game::UpdateGame()
 
 void Game::GenerateOutput()
 {
+    mRenderer->Clear();
 
+    mRenderer->Present();
 }
 
 void Game::Shutdown()
 {
     close_client(&mClient);
+
+    mRenderer->Shutdown();
+    delete mRenderer;
+    mRenderer = nullptr;
 
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
