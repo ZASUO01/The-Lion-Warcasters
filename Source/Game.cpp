@@ -11,7 +11,8 @@ Game::Game()
         ,mTicksCount(0)
         ,mIsRunning(true)
 {
-
+    init_net_client(&mClient);
+    add_server_addr(&mClient, "127.0.0.1");
 }
 
 bool Game::Initialize()
@@ -85,6 +86,8 @@ void Game::GenerateOutput()
 
 void Game::Shutdown()
 {
+    close_client(&mClient);
+
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
 }

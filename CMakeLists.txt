@@ -12,7 +12,22 @@ add_executable(${PROJECT_NAME}
         Source/Main.cpp
         Source/Game.cpp
         Source/Game.h
+        Source/Network/UdpNet/Client.c
+        Source/Network/UdpNet/Client.h
+        Source/Network/UdpNet/NetLogger.h
+        Source/Network/UdpNet.h
+        Source/Network/UdpNet/NetLogger.c
+        Source/Network/UdpNet/Socket.c
+        Source/Network/UdpNet/Socket.h
+        Source/Network/UdpNet/Addrresses.c
+        Source/Network/UdpNet/Addrresses.h
+        Source/Network/UdpNet/Defs.h
+        Source/Network/UdpNet/NetUtils.c
+        Source/Network/UdpNet/NetUtils.h
+        Source/Network/UdpNet/Platforms.h
+        Source/Network/UdpNet/Platforms.c
         Source/Utils/Math.h
+        Source/Utils/Math.cpp
         Source/Utils/Random.h
         Source/Utils/Random.cpp
         Source/Renderer/Shader.cpp
@@ -21,6 +36,10 @@ add_executable(${PROJECT_NAME}
         Source/Renderer/Renderer.h
         Source/Renderer/VertexArray.cpp
         Source/Renderer/VertexArray.h
-        Source/Utils/Math.cpp)
+       )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
+
+if(WIN32)
+    target_link_libraries(${PROJECT_NAME} PRIVATE ws2_32)
+endif ()
