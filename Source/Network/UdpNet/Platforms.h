@@ -43,4 +43,4 @@
 int platform_networking_init();
 void platform_networking_cleanup();
 
-#endif PLATFORMS_H
+#endif //PLATFORMS_H
