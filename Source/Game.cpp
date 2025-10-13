@@ -4,6 +4,7 @@
 
 #include "Game.h"
 
+#include "Actors/Actor.h"
 #include "Network/UdpNet/Packet.h"
 #include "Network/UdpNet/Socket.h"
 #include "Utils/Random.h"
@@ -37,6 +38,8 @@ bool Game::Initialize()
 
     mRenderer = new Renderer(mWindow);
     mRenderer->Initialize(Game::WINDOW_WIDTH, Game::WINDOW_HEIGHT);
+
+    Actor *actor = new Actor(this);
 
     mTicksCount = SDL_GetTicks();
 
@@ -79,13 +82,16 @@ void Game::UpdateGame()
 {
     bool packet_received = false;
     while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)) {
-        if (socket_ready_to_receive(mClient.socket , 0) != 0) {
-            continue;
-        }
+        if (!packet_received) {
+            if (socket_ready_to_receive(mClient.socket , 0) != 0) {
+                continue;
+            }
 
-        UdpNetPacket pk;
-        if (receive_packet_from_v4(mClient.socket, &pk, &mClient.server_addr_v4) != 0) {
-            continue;
+            UdpNetPacket pk;
+            if (receive_packet_from_v4(mClient.socket, &pk, &mClient.server_addr_v4) != 0) {
+                continue;
+            }
+            packet_received = true;
         }
 
         SDL_Log("reveived packet");

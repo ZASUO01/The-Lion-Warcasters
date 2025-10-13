@@ -38,6 +38,8 @@ add_executable(${PROJECT_NAME}
         Source/Renderer/Renderer.h
         Source/Renderer/VertexArray.cpp
         Source/Renderer/VertexArray.h
+        Source/Actors/Actor.cpp
+        Source/Actors/Actor.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
