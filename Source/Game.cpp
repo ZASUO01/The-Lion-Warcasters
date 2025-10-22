@@ -3,10 +3,7 @@
 //
 
 #include "Game.h"
-
 #include "Actors/Actor.h"
-#include "Network/UdpNet/Packet.h"
-#include "Network/UdpNet/Socket.h"
 #include "Utils/Random.h"
 
 Game::Game()
@@ -15,8 +12,9 @@ Game::Game()
         ,mTicksCount(0)
         ,mIsRunning(true)
 {
-    init_net_client(&mClient);
-    add_server_addr(&mClient, "127.0.0.1");
+    mClient = new NetClient();
+    mClient->Init();
+    mClient->AddServerAddrV4("127.0.0.1");
 }
 
 bool Game::Initialize()
@@ -70,32 +68,11 @@ void Game::ProcessInput()
     }
 
     const Uint8* state = SDL_GetKeyboardState(nullptr);
-
-    UdpNetPacket pk;
-    init_packet(&pk, 0, SYN_FLAG, 0);
-    build_packet(&pk);
-    size_t pk_size = PACKET_HEADER_BYTES;
-    send_packet_to_v4(mClient.socket, &pk, pk_size, &mClient.server_addr_v4);
 }
 
 void Game::UpdateGame()
 {
-    bool packet_received = false;
-    while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)) {
-        if (!packet_received) {
-            if (socket_ready_to_receive(mClient.socket , 0) != 0) {
-                continue;
-            }
-
-            UdpNetPacket pk;
-            if (receive_packet_from_v4(mClient.socket, &pk, &mClient.server_addr_v4) != 0) {
-                continue;
-            }
-            packet_received = true;
-        }
-
-        SDL_Log("reveived packet");
-    }
+    while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)) {}
 
     float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
     if (deltaTime > 0.05f)
@@ -115,7 +92,8 @@ void Game::GenerateOutput()
 
 void Game::Shutdown()
 {
-    close_client(&mClient);
+    mClient->Close();
+    delete mClient;
 
     mRenderer->Shutdown();
     delete mRenderer;
