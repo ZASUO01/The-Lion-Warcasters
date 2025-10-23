@@ -12,7 +12,7 @@ uint32_t NetUtils::generateNonce() {
     return (timestamp << 16) | random_val;
 }
 
-uint16_t getNetChecksum(const void *data, const size_t data_size){
+uint16_t NetUtils::getNetChecksum(const void *data, const size_t data_size){
     const auto *buf = static_cast<const uint8_t *>(data);
     uint32_t sum = 0;
 

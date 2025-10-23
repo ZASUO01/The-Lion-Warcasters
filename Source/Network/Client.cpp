@@ -13,6 +13,8 @@
 NetClient::NetClient()
 :state(NetClientState::CLIENT_CLOSED)
 ,socket(-1)
+,server_addr_v4({})
+,nonce(0)
 {}
 
 NetClient::~NetClient() {}

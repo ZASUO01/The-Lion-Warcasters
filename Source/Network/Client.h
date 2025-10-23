@@ -22,6 +22,8 @@ public:
     int AddServerAddrV4(const char *ipv4);
     void Close();
 
+    [[nodiscard]] uint32_t GetNonce() const {return nonce;}
+
 private:
     // current client state
     NetClientState state;
