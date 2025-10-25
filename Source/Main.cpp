@@ -3,6 +3,7 @@
 //
 #include "Game.h"
 #include "Network/Platforms.h"
+#undef main
 
 int main(){
     if (Platforms::platformNetworkingInit() != 0) {
