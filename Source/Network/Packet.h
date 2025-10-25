@@ -7,6 +7,9 @@
 
 #include <cstdint>
 #include <cstdlib>
+#include <variant>
+#include <string>
+#include <vector>
 
 enum class DataType : uint8_t {
     UINT32_TYPE = 0,
@@ -17,14 +20,42 @@ enum class DataType : uint8_t {
     STRING_TYPE
 };
 
+class DataField {
+public:
+    explicit DataField(uint32_t value) : type(DataType::UINT32_TYPE), value(value) {}
+    explicit DataField(int32_t value) : type(DataType::INT32_TYPE), value(value) {}
+    explicit DataField(float value) : type(DataType::FLOAT_TYPE), value(value) {}
+    explicit DataField(double value) : type(DataType::DOUBLE_TYPE), value(value) {}
+    explicit DataField(bool value) : type(DataType::BOOL_TYPE), value(value) {}
+    explicit DataField(const char *value) : type(DataType::STRING_TYPE), value(std::string(value)) {}
+
+    // getters
+    [[nodiscard]] DataType GetType() const { return type; }
+    [[nodiscard]] std::string GetTypeString() const;
+
+    template<typename T>
+    T GetValue() const { return std::get<T>(value); }
+
+    [[nodiscard]] size_t GetValueSize() const;
+
+
+
+private:
+    DataType type;
+    std::variant<uint32_t, int32_t, float, double, bool, std::string> value;
+};
+
 #pragma pack(1)
 class NetPacket {
 public:
     NetPacket();
     NetPacket(uint16_t _sequence, uint8_t _flag, uint32_t _nonce);
+
+    void AddField(const DataField& field);
     void BuildPacket();
     void PrintPacket() const;
     [[nodiscard]] bool IsValid() const;
+    [[nodiscard]] std::vector<DataField> GetFields() const;
 
     // public packet constants
     static constexpr size_t MAX_PACKET_DATA_BYTES = 1024;
@@ -49,7 +80,7 @@ private:
     uint32_t nonce;
     uint16_t length;
     uint16_t checksum;
-    char data[1024];
+    char data[NetPacket::MAX_PACKET_DATA_BYTES];
 
     // packet constants
     static constexpr uint32_t PACKET_SYNC_BYTES = 0x554E4554;

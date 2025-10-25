@@ -5,7 +5,6 @@
 #include "Game.h"
 #include "Actors/Actor.h"
 #include "Utils/Random.h"
-#include "Network/Packet.h"
 
 Game::Game()
         :mWindow(nullptr)
@@ -73,10 +72,6 @@ void Game::ProcessInput()
 
 void Game::UpdateGame()
 {
-    // send packet to the server
-    NetPacket packet(0, NetPacket::SYN_FLAG, mClient->GetNonce());
-    packet.BuildPacket();
-
     while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)) {}
 
     float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
