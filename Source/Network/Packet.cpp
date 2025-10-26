@@ -300,3 +300,11 @@ std::vector<DataField> NetPacket::GetFields() const {
 
     return fields;
 }
+
+uint16_t NetPacket::GetLength() const {
+    if (state != PACKET_READY) {
+        return length;
+    }
+
+    return htons(length);
+}

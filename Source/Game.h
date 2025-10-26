@@ -38,4 +38,5 @@ private:
 
     // Network variables and methods
     NetClient *mClient;
+    void SendDataToServer() const;
 };

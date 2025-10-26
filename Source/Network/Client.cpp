@@ -13,11 +13,11 @@
 NetClient::NetClient()
 :state(NetClientState::CLIENT_CLOSED)
 ,socket(-1)
-,server_addr_v4({})
+,serverAddrV4({})
 ,nonce(0)
 {}
 
-NetClient::~NetClient() {}
+NetClient::~NetClient() = default;
 
 void NetClient::Init() {
     socket = SocketUtils::createUDPSocketV4();
@@ -26,18 +26,18 @@ void NetClient::Init() {
     LOG_MSG(LOG_INFO, "client struct initialized");
 }
 
-int NetClient::AddServerAddrV4(const char *ipv4) {
-        struct sockaddr_in addr_v4;
+bool NetClient::SetServerAddrV4(const char *ipv4) {
+        struct sockaddr_in addr_v4{};
 
-        if (Addresses::parseAddrV4(&addr_v4, ipv4, APP_PORT) != 0) {
-            return -1;
+        if (!Addresses::parseAddrV4(&addr_v4, ipv4, APP_PORT)) {
+            return false;
         }
 
-        server_addr_v4 = addr_v4;
+        serverAddrV4 = addr_v4;
         state = NetClientState::CLIENT_READY;
 
         LOG_MSG(LOG_INFO, "server addr added");
-        return 0;
+        return true;
 }
 
 void NetClient::Close() {

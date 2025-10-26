@@ -9,7 +9,7 @@
 #include <cstdint>
 
 namespace Addresses {
-    int parseAddrV4(struct sockaddr_in *addr, const char *addr_str, uint16_t port);
+    bool parseAddrV4(struct sockaddr_in *addr, const char *addr_str, uint16_t port);
 };
 
 

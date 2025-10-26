@@ -19,8 +19,12 @@ public:
     ~NetClient();
 
     void Init();
-    int AddServerAddrV4(const char *ipv4);
     void Close();
+
+    [[nodiscard]] int GetSocket() const {return socket;}
+
+    bool SetServerAddrV4(const char *ipv4);
+    [[nodiscard]] struct sockaddr_in& GetServerAddrV4()   {return serverAddrV4; }
 
     [[nodiscard]] uint32_t GetNonce() const {return nonce;}
 
@@ -32,7 +36,7 @@ private:
     int socket;
 
     // server ipv4 socket address
-    struct sockaddr_in server_addr_v4;
+    struct sockaddr_in serverAddrV4;
 
     // client identifier in network communication
     uint32_t nonce;

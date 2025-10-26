@@ -56,6 +56,8 @@ public:
     void PrintPacket() const;
     [[nodiscard]] bool IsValid() const;
     [[nodiscard]] std::vector<DataField> GetFields() const;
+    [[nodiscard]] uint16_t GetLength() const;
+    [[nodiscard]] uint8_t GetFlag() const { return flag; }
 
     // public packet constants
     static constexpr size_t MAX_PACKET_DATA_BYTES = 1024;
