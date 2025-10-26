@@ -2,10 +2,11 @@
 // Created by pedro-souza on 02/10/2025.
 //
 #include "Game.h"
-#include "Network/UdpNet/Platforms.h"
+#include "Network/Platforms.h"
+#undef main
 
 int main(){
-    if (platform_networking_init() != 0) {
+    if (Platforms::platformNetworkingInit() != 0) {
         exit(EXIT_FAILURE);
     }
 
@@ -15,6 +16,6 @@ int main(){
     }
     game.Shutdown();
 
-    platform_networking_cleanup();
+    Platforms::platformNetworkingCleanup();
     return 0;
 }

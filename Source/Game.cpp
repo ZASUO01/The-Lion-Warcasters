@@ -3,11 +3,11 @@
 //
 
 #include "Game.h"
-
 #include "Actors/Actor.h"
-#include "Network/UdpNet/Packet.h"
-#include "Network/UdpNet/Socket.h"
+#include "Network/Packet.h"
+#include "Network/Socket.h"
 #include "Utils/Random.h"
+#include <iostream>
 
 Game::Game()
         :mWindow(nullptr)
@@ -15,8 +15,9 @@ Game::Game()
         ,mTicksCount(0)
         ,mIsRunning(true)
 {
-    init_net_client(&mClient);
-    add_server_addr(&mClient, "127.0.0.1");
+    mClient = new NetClient();
+    mClient->Init();
+    mClient->SetServerAddrV4("127.0.0.1");
 }
 
 bool Game::Initialize()
@@ -66,35 +67,39 @@ void Game::ProcessInput()
             case SDL_QUIT:
                 Quit();
                 break;
+            default:
+                break;
         }
     }
 
     const Uint8* state = SDL_GetKeyboardState(nullptr);
-
-    UdpNetPacket pk;
-    init_packet(&pk, 0, SYN_FLAG, 0);
-    build_packet(&pk);
-    size_t pk_size = PACKET_HEADER_BYTES;
-    send_packet_to_v4(mClient.socket, &pk, pk_size, &mClient.server_addr_v4);
 }
 
 void Game::UpdateGame()
 {
-    bool packet_received = false;
+    // Send Packet
+    SendDataToServer();
+
+    bool packetReceived = false;
+    NetPacket res;
+
     while (!SDL_TICKS_PASSED(SDL_GetTicks(), mTicksCount + 16)) {
-        if (!packet_received) {
-            if (socket_ready_to_receive(mClient.socket , 0) != 0) {
+        if (!packetReceived) {
+            if (!SocketUtils::socketReadyToReceive(mClient->GetSocket(), 0)) {
                 continue;
             }
 
-            UdpNetPacket pk;
-            if (receive_packet_from_v4(mClient.socket, &pk, &mClient.server_addr_v4) != 0) {
+            if (!SocketUtils::receivePacketFromV4(mClient->GetSocket(), &res, &mClient->GetServerAddrV4())) {
                 continue;
             }
-            packet_received = true;
+
+            if (!res.IsValid()) {
+                continue;
+            }
+
+            auto fields = res.GetFields();
+            std::cout << fields[0].GetValue<std::string>() << "\n";
         }
-
-        SDL_Log("reveived packet");
     }
 
     float deltaTime = (SDL_GetTicks() - mTicksCount) / 1000.0f;
@@ -115,7 +120,8 @@ void Game::GenerateOutput()
 
 void Game::Shutdown()
 {
-    close_client(&mClient);
+    mClient->Close();
+    delete mClient;
 
     mRenderer->Shutdown();
     delete mRenderer;
@@ -123,4 +129,19 @@ void Game::Shutdown()
 
     SDL_DestroyWindow(mWindow);
     SDL_Quit();
+}
+
+void Game::SendDataToServer() const {
+    NetPacket pk(0, NetPacket::DATA_FLAG,mClient->GetNonce());
+    const DataField data("Hello server");
+    pk.AddField(data);
+    pk.BuildPacket();
+    const size_t pkSize = NetPacket::PACKET_HEADER_BYTES + pk.GetLength();
+
+    SocketUtils::sendPacketToV4(
+        mClient->GetSocket(),
+        &pk,
+        pkSize,
+        &mClient->GetServerAddrV4()
+    );
 }

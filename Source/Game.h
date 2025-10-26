@@ -6,10 +6,8 @@
 #include "SDL.h"
 #include <GL/glew.h>
 #include "Renderer/Renderer.h"
+#include "Network/Client.h"
 
-extern "C" {
-    #include "Network/UdpNet.h"
-}
 
 class Game {
 public:
@@ -39,5 +37,6 @@ private:
     bool mIsRunning;
 
     // Network variables and methods
-    NetClient mClient;
+    NetClient *mClient;
+    void SendDataToServer() const;
 };

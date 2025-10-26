@@ -4,7 +4,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(PROJECT_NAME "projeto-final")
 project(${PROJECT_NAME})
 
-find_package(SDL2 2.32.2 EXACT REQUIRED)
+find_package(SDL2 2.32.2 REQUIRED)
 find_package(GLEW REQUIRED)
 find_package(OpenGL REQUIRED)
 
@@ -12,22 +12,6 @@ add_executable(${PROJECT_NAME}
         Source/Main.cpp
         Source/Game.cpp
         Source/Game.h
-        Source/Network/UdpNet/Client.c
-        Source/Network/UdpNet/Client.h
-        Source/Network/UdpNet/NetLogger.h
-        Source/Network/UdpNet.h
-        Source/Network/UdpNet/NetLogger.c
-        Source/Network/UdpNet/Socket.c
-        Source/Network/UdpNet/Socket.h
-        Source/Network/UdpNet/Addrresses.c
-        Source/Network/UdpNet/Addrresses.h
-        Source/Network/UdpNet/Defs.h
-        Source/Network/UdpNet/NetUtils.c
-        Source/Network/UdpNet/NetUtils.h
-        Source/Network/UdpNet/Platforms.h
-        Source/Network/UdpNet/Platforms.c
-        Source/Network/UdpNet/Packet.c
-        Source/Network/UdpNet/Packet.h
         Source/Utils/Math.h
         Source/Utils/Math.cpp
         Source/Utils/Random.h
@@ -40,6 +24,21 @@ add_executable(${PROJECT_NAME}
         Source/Renderer/VertexArray.h
         Source/Actors/Actor.cpp
         Source/Actors/Actor.h
+        Source/Network/Platforms.cpp
+        Source/Network/Platforms.h
+        Source/Network/Client.cpp
+        Source/Network/Client.h
+        Source/Network/Socket.cpp
+        Source/Network/Socket.h
+        Source/Network/NetLogger.cpp
+        Source/Network/NetLogger.h
+        Source/Network/NetUtils.cpp
+        Source/Network/NetUtils.h
+        Source/Network/Addresses.cpp
+        Source/Network/Addresses.h
+        Source/Network/Defs.h
+        Source/Network/Packet.cpp
+        Source/Network/Packet.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
