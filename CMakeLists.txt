@@ -17,6 +17,8 @@ add_executable(${PROJECT_NAME}
         Source/Utils/Math.h
         Source/Utils/Random.cpp
         Source/Utils/Random.h
+        Source/Network/Platforms.cpp
+        Source/Network/Platforms.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
