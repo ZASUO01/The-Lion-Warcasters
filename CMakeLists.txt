@@ -10,7 +10,6 @@ find_package(OpenGL REQUIRED)
 
 add_executable(${PROJECT_NAME}
         Source/Main.cpp
-        Source/Main.cpp
         Source/Game.cpp
         Source/Game.h
         Source/Utils/Math.cpp

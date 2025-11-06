@@ -1,9 +1,10 @@
 //
 // Created by pedro-souza on 04/11/2025.
 //
-#undef main
+
 #include "Game.h"
 #include "Network/Platforms.h"
+#undef main
 
 int main() {
     if(Platforms::platformNetworkingInit() != 0){
