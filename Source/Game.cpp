@@ -34,32 +34,7 @@ bool Game::Initialize()
     }
 
     mTicksCount = SDL_GetTicks();
-
-    typedef struct GameState {
-        int a;
-        bool b;
-        double c;
-    };
-
-    GameState gameState;
-    gameState.a = 2;
-    gameState.b = true;
-    gameState.c = 0.35;
-
-    Packet p(0, Packet::ACK_FLAG, 0);
-    p.SetData(&gameState, sizeof(gameState));
-    p.BuildPacket();
-
-    if (!p.IsValid()) {
-        std::cout << "invalid\n";
-    }
-
-    std::cout<< "valid\n";
-
-    const auto gameState2 = static_cast<const GameState *>(p.GetData());
-
-    std::cout << gameState2->a << " / " << gameState2->b << " / " << gameState2->c << "\n";
-
+    
     return true;
 }
 
