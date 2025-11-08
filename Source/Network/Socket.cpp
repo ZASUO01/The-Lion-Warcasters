@@ -9,7 +9,7 @@
 #include <cstring>
 
 int SocketUtils::createSocketV4() {
-    const int sock = (int)socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+    const int sock = create_socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
     if (sock < 0) {
         Logger::sysLogExit("create socket");
     }
@@ -20,7 +20,7 @@ void SocketUtils::bindSocketToAnyV4(const int sock) {
     sockaddr_in addr{};
     Addresses::initAddrAnyV4(&addr, APP_PORT);
 
-    if (bind(sock, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) < 0) {
+    if (socket_bind(sock, reinterpret_cast<sockaddr *>(&addr), sizeof(addr)) < 0) {
         close_socket(sock);
         Logger::sysLogExit("bind socket");
     }
@@ -42,7 +42,7 @@ bool SocketUtils::socketReadyToReceive(const int sock, const int ms) {
 bool SocketUtils::sendPacketToV4(const int sock, const char *pk, const size_t pkSize, sockaddr_in addr4) {
     constexpr socklen_t addr_size = sizeof(sockaddr_in);
 
-    if (const ssize_t bytes_sent = sendto(sock, (const char*)pk, pkSize, 0, reinterpret_cast<sockaddr *>(&addr4), addr_size);
+    if (const ssize_t bytes_sent = socket_sendto(sock, pk, pkSize, 0, reinterpret_cast<sockaddr *>(&addr4), addr_size);
         bytes_sent < 0 || static_cast<size_t>(bytes_sent) != pkSize) {
         return false;
     }
@@ -55,7 +55,7 @@ bool SocketUtils::receivePacketFromV4(const int sock, Packet *pk, sockaddr_in ad
 
     socklen_t addrSize = sizeof(sockaddr_in);
 
-    if (const ssize_t bytes_received = recvfrom(sock, (char*)(pk), pkSize, 0, reinterpret_cast<sockaddr *>(&addr4), &addrSize);
+    if (const ssize_t bytes_received = socket_recvfrom(sock, pk, pkSize, 0, reinterpret_cast<sockaddr *>(&addr4), &addrSize);
         bytes_received <= 0) {
         return false;
     }

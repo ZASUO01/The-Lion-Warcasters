@@ -16,7 +16,6 @@ add_executable(${PROJECT_NAME}
         Source/Utils/Math.h
         Source/Utils/Random.cpp
         Source/Utils/Random.h
-        Source/Network/Platforms.cpp
         Source/Network/Platforms.h
         Source/Network/Packet.cpp
         Source/Network/Packet.h

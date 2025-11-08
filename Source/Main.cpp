@@ -7,9 +7,7 @@
 #undef main
 
 int main() {
-    if(Platforms::platformNetworkingInit() != 0){
-        exit(EXIT_FAILURE);
-    }
+    networkingInit();
 
     Game game;
     if (game.Initialize()){
@@ -17,6 +15,6 @@ int main() {
     }
     game.Shutdown();
 
-    Platforms::platformNetworkingCleanup();
+    networkingCleanup();
     return 0;
 }
