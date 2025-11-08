@@ -55,8 +55,7 @@ bool SocketUtils::receivePacketFromV4(const int sock, Packet *pk, sockaddr_in ad
 
     socklen_t addrSize = sizeof(sockaddr_in);
 
-    if (const ssize_t bytes_received = socket_recvfrom(sock, pk, pkSize, 0, reinterpret_cast<sockaddr *>(&addr4), &addrSize);
-        bytes_received <= 0) {
+    if (const ssize_t bytes_received = socket_recvfrom(sock, pk, pkSize, 0, reinterpret_cast<sockaddr *>(&addr4), &addrSize); bytes_received <= 0) {
         return false;
     }
     return true;

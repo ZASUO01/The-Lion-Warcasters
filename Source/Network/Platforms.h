@@ -26,11 +26,11 @@
     #define close_socket(sock) closesocket((SOCKET)(sock))
 
     #define socket_sendto(socket, buffer, length, flags, dest_addr, addrlen) \
-        sendto(static_cast<SOCKET>(socket), static_cast<const char*>(buffer), static_cast<int>(length), flags, \
+        sendto(static_cast<SOCKET>(socket), reinterpret_cast<const char*>(buffer), static_cast<int>(length), flags, \
             dest_addr, static_cast<int>(addrlen))
 
     #define socket_recvfrom(socket, buffer, length, flags, src_addr, addrlen) \
-        recvfrom(static_cast<SOCKET>(socket), static_cast<char*>(buffer), \
+        recvfrom(static_cast<SOCKET>(socket), reinterpret_cast<char*>(buffer), \
         static_cast<int>(length), flags, src_addr, static_cast<int*>(addrlen))
 
     #define socket_bind(socket, addr, addrlen) \

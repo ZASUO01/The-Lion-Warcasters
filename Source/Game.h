@@ -4,6 +4,7 @@
 
 #pragma once
 #include <SDL.h>
+#include "Network/Client.h"
 
 class Game {
 public:
@@ -31,4 +32,7 @@ private:
     // Game control variables
     Uint32 mTicksCount;
     bool mIsRunning;
+
+    //Network
+    Client* mClient;
 };

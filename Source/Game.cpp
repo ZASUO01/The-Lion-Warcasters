@@ -14,6 +14,13 @@ Game::Game()
         ,mTicksCount(0)
         ,mIsRunning(true)
 {
+    // Network
+    mClient = new Client();
+    mClient->Init("127.0.0.1");
+
+    if (mClient->GetClientState() == ClientState::CLIENT_READY) {
+        std::cout << "client ready\n";
+    }
 }
 
 bool Game::Initialize()
@@ -82,6 +89,10 @@ void Game::GenerateOutput(){}
 
 void Game::Shutdown()
 {
+    mClient->Shutdown();
+    delete mClient;
+    mClient = nullptr;
+
     mRenderer = nullptr;
 
     SDL_DestroyWindow(mWindow);

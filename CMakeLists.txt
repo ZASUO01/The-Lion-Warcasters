@@ -28,6 +28,8 @@ add_executable(${PROJECT_NAME}
         Source/Network/Addresses.cpp
         Source/Network/Addresses.h
         Source/Network/Defs.h
+        Source/Network/Client.cpp
+        Source/Network/Client.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
