@@ -6,6 +6,7 @@
 #define ADDRESSES_H
 
 #include "Platforms.h"
+#include <cstdint>
 
 namespace Addresses {
     void initAddrAnyV4(sockaddr_in *addr4, unsigned int port);
