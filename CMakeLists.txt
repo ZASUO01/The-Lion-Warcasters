@@ -22,6 +22,13 @@ add_executable(${PROJECT_NAME}
         Source/Network/Packet.h
         Source/Network/NetUtils.cpp
         Source/Network/NetUtils.h
+        Source/Network/Socket.cpp
+        Source/Network/Socket.h
+        Source/Network/Logger.cpp
+        Source/Network/Logger.h
+        Source/Network/Addresses.cpp
+        Source/Network/Addresses.h
+        Source/Network/Defs.h
 )
 
 target_link_libraries(${PROJECT_NAME} PRIVATE GLEW::GLEW SDL2::SDL2 OpenGL::GL)
