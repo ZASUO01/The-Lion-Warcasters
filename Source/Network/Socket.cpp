@@ -3,14 +3,10 @@
 //
 
 #include "Socket.h"
-
-#include <cstring>
-#include <netinet/in.h>
-#include <sys/socket.h>
-
 #include "Addresses.h"
 #include "Defs.h"
 #include "Logger.h"
+#include <cstring>
 
 int SocketUtils::createSocketV4() {
     const int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);

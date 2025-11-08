@@ -4,8 +4,8 @@
 
 #ifndef SOCKET_H
 #define SOCKET_H
-#include <netinet/in.h>
 
+#include "Platforms.h"
 #include "Packet.h"
 
 
